@@ -4,8 +4,14 @@ const express=require('express');
 const router=express.Router();
 const User=require('../modals/user.model')
 
-router.get('/',(req,res)=>{
-    res.send("hello user")
+router.get('/', async(req,res)=>{
+    try{
+    const allusers= await User.find().lean().exec();
+
+    res.status(201).send({users:allusers})
+    }catch(err) {
+        res.status(401).send("something went wrong")
+    }
 })
 
 router.post("/register", async(req,res)=>{

@@ -4,8 +4,9 @@ const express=require('express');
 const router=express.Router();
 const Book=require('../modals/book.model')
 
-router.get('/',(req,res)=>{
-    res.send("hello all books")
+router.get('/', async(req,res)=>{
+    const books =await Book.find().lean().exec();
+    res.send({allbooks: books})
 })
 
 router.post("/add", async (req,res)=>{
@@ -21,12 +22,8 @@ router.post("/add", async (req,res)=>{
 router.put("/:id" ,async(req, res)=>{
 
     try{
-        const book = await Book.findById({"id":({$eq:req.params.id})})
-    //   const book = await Book.findByIdAndUpdate({id:req.params.id,
-    //   name:req.body.name,
-    //   author:req.body.author,
-     
-    // })
+       
+      const book = await Book.findByIdAndUpdate(req.params.id,req.body,{new:true} )
 
     res.send({"idbook":book}).status(201)
   }catch(err) {
@@ -37,9 +34,17 @@ router.put("/:id" ,async(req, res)=>{
 })
 
 
+router.delete("/:id", async(req,res)=>{
+    const removebook= await Book.findByIdAndDelete({_id:req.params.id});
+    res.send({"idbook":removebook})
+})
 
 
 
+router.get("/:author", async(req,res)=>{
+    const findbookbyauthor= await Book.findOne({author:req.params.author}).lean().exec();
+    res.status(201).send({bookbyauthor:findbookbyauthor})
+})
 
 
 
