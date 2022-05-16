@@ -3,15 +3,11 @@ import React,{useState} from 'react';
 import  {useNavigate}  from "react-router-dom";
 
 const init={
-    name:"",
+    username:"",
     email:"",
-    mobile:"",
+   
     password:"",
-    cpassword:"",
-    city:"",
-    state:"",
-    pincode:"",
-   country:""
+   
 }
 
 const Signup = () => {
@@ -28,14 +24,14 @@ const Signup = () => {
     const handleSubmit= async (e)=>{
         e.preventDefault();
         //console.log(user);
-        const{name,email,mobile,password,cpassword,city,state,pincode,country}=user;
+        const{username,email,password}=user;
       
       let res= await fetch("/register",{
             method: "POST",
             headers: {
                 "content-Type": "application/json"
             },
-            body: JSON.stringify( {name,email,mobile,password,cpassword,city,state,pincode,country})
+            body: JSON.stringify( {username,email,password})
          })
         //.then((d)=>d.json()).then((res)=>{
         //     if(res.status !==201){
@@ -71,23 +67,15 @@ const Signup = () => {
   return (
     <form  method="POST">
      <input type="text" 
-     onChange={HandleInputs} name="name" placeholder=" enter name"/><br/>
+     onChange={HandleInputs} name="username" placeholder=" enter name"/><br/>
      <input type="text" 
      onChange={HandleInputs} name="email" placeholder="Enter email"/><br/>
-     <input type="number" 
-     onChange={HandleInputs}  name="mobile" placeholder="Enter mobile"/><br/>
+    
+   
       <input type="password" 
       onChange={HandleInputs} name="password" placeholder="Enter password"/><br/>
-      <input type="password" 
-      onChange={HandleInputs} name="cpassword" placeholder=" confirm password"/><br/>
-      <input type="text" 
-      onChange={HandleInputs} name="city" placeholder=" enter city"/><br/>
-      <input type="text" 
-      onChange={HandleInputs} name="state" placeholder="Enter state"/><br/>
-       <input type="number" 
-       onChange={HandleInputs} name="pincode" placeholder="Enter pincode"/><br/>
-       <input type="text" 
-       onChange={HandleInputs} name="country" placeholder="Enter your country"/><br/> 
+    
+     
         <button type="submit" onClick={handleSubmit}>Signup</button><br/>
     </form>
   )
