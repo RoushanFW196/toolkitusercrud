@@ -2,6 +2,10 @@
 const express= require('express');
 const app= express();
 const connect= require('./configs/db');
+const path= require("path");
+ const dotenv= require("dotenv");
+ dotenv.config({path:path.join(__dirname, '../config.env')});
+ const port=process.env.PORT 
 const Usercontroller= require("./controllers/user.controller")
 const Bookcontroller=require("./controllers/book.controller.js")
 
@@ -18,7 +22,7 @@ app.use("/book",Bookcontroller)
 
 
 console.log("hello");
-app.listen(1200, async(req,res)=>{
+app.listen(port, async(req,res)=>{
     await connect();
-    console.log("listening on port 1200");
+    console.log(`listening on ${port}`);
 });
