@@ -4,13 +4,13 @@ const app= express();
 const connect= require('./configs/db');
 const path= require("path");
  const dotenv= require("dotenv");
- dotenv.config({path:path.join(__dirname, '../config.env')});
+ dotenv.config({path:path.join(__dirname, './config.env')});
  const port=process.env.PORT 
 const Usercontroller= require("./controllers/user.controller")
 const Bookcontroller=require("./controllers/book.controller.js")
 
 app.use(express.json());
-
+app.use(express.static(__dirname));
 
 app.use("/user",Usercontroller)
 
