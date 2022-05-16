@@ -1,0 +1,20 @@
+
+.books-container{
+    display:grid;
+    grid-template-columns: repeat(4,22%);
+    margin:2%;
+}
+
+.book{
+    -webkit-box-shadow: 14px -1px 16px -13px rgba(102,74,102,1);
+-moz-box-shadow: 14px -1px 16px -13px rgba(102,74,102,1);
+box-shadow: 14px -1px 16px -13px rgba(102,74,102,1);
+ background-color: gray;
+ margin:2%;
+ padding:2%;
+ color:white;
+};
+
+.book img{
+    align-items: center;
+}

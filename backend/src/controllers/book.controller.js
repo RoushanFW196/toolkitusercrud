@@ -21,12 +21,14 @@ router.post("/add", async (req,res)=>{
 router.put("/:id" ,async(req, res)=>{
 
     try{
-        const book = await Book.findById(req.params.id)
+        const book = await Book.findById({"id":({$eq:req.params.id})})
     //   const book = await Book.findByIdAndUpdate({id:req.params.id,
     //   name:req.body.name,
     //   author:req.body.author,
+     
     // })
-    res.send(201).json({data:book})
+
+    res.send({"idbook":book}).status(201)
   }catch(err) {
         res.status(404).json({err:"something went wrong"})
     }
