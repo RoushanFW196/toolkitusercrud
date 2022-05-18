@@ -5,8 +5,18 @@ const router=express.Router();
 const Book=require('../modals/book.model')
 
 router.get('/', async(req,res)=>{
-    const books =await Book.find().lean().exec();
-    res.send({allbooks: books})
+    const page=+req.query.page ||1;
+    const size=+req.query.size||10;
+    // console.log(page )
+    // console.log(size)
+    const offset=(page-1)*size;
+    const books =await Book.find({}).skip(offset).limit(size).lean().exec();
+    //res.status(201).send({allbooks: books});
+
+    const totalpages=Math.ceil((await Book.find({}).countDocuments().lean().exec())/size)
+
+  console.log(+totalpages,"total")
+  res.status(201).send({allbooks: books,totalpages});
 })
 
 router.post("/add", async (req,res)=>{
@@ -42,7 +52,12 @@ router.delete("/:id", async(req,res)=>{
 
 
 router.get("/:author", async(req,res)=>{
-    const findbookbyauthor= await Book.findOne({author:req.params.author}).lean().exec();
+    const page=+req.query.page ||1;
+    const size=+req.query.size||3;
+    // console.log(page )
+    // console.log(size)
+    const offset=(page-1)*size;
+    const findbookbyauthor= await Book.findOne({author:req.params.author}).skip(offset).limit(size).lean().exec();
     res.status(201).send({bookbyauthor:findbookbyauthor})
 })
 

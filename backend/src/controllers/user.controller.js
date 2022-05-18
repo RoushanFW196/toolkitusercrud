@@ -16,10 +16,6 @@ router.get('/', async(req,res)=>{
     }
 })
 
-// router.post("/register", async(req,res)=>{
-//     const newuser= await User.create(req.body);
-//     res.status(201).json({user:newuser});
-// })
 
 
 router.post("/register",async(req,res)=>{
